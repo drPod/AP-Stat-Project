@@ -88,30 +88,6 @@ ax_conf_int.legend()
 plt.savefig('spicy_food_preference_conf_interval.png')
 print("\n")
 
-# Visualize confidence interval for Pineapple Pizza Preference (Single Proportion - Yes) -  Conceptual Normal Distribution
-n_pineapple_yes = pineapple_pizza_counts['Yes'] # Reusing existing count
-n_pineapple_total = len(data) # Reusing existing total
-conf_interval_pineapple_single = proportion_confint(n_pineapple_yes, n_pineapple_total, method='wilson') # Recalculating if needed, or reuse existing conf_interval_pineapple if you want single proportion CI
-
-fig_conf_int_pineapple, ax_conf_int_pineapple = plt.subplots(figsize=(8, 5))
-
-# Generate x values for the normal distribution curve
-x_norm = np.linspace(-4, 4, 500)
-y_norm = norm.pdf(x_norm, 0, 1) # Standard normal distribution (mean=0, std=1)
-ax_conf_int_pineapple.plot(x_norm, y_norm, label='Standard Normal Distribution')
-
-# Shade the confidence interval area (assuming 95% CI, z-scores approx -1.96 and 1.96)
-x_fill = np.linspace(-1.96, 1.96, 500)
-y_fill = norm.pdf(x_fill, 0, 1)
-ax_conf_int_pineapple.fill_between(x_fill, y_fill, color='skyblue', alpha=0.5, label='95% Confidence Interval')
-
-ax_conf_int_pineapple.set_title('Confidence Interval Visualization (Pineapple Pizza Preference - Single Proportion - Conceptual Normal Distribution)') # Modified title
-ax_conf_int_pineapple.set_xlabel('Z-score')
-ax_conf_int_pineapple.set_ylabel('Probability Density')
-ax_conf_int_pineapple.legend()
-plt.savefig('pineapple_pizza_preference_conf_interval.png') # New file name
-print("\n")
-
 # Calculate gender-specific data for spicy food preference
 male_data = data[data['Please select your gender'] == 'Male']
 female_data = data[data['Please select your gender'] == 'Female']
@@ -194,6 +170,30 @@ n_pineapple_yes = pineapple_pizza_counts['Yes']
 n_pineapple_total = len(data)
 conf_interval_pineapple = proportion_confint(n_pineapple_yes, n_pineapple_total, method='wilson')
 print(f"Confidence Interval for Pineapple on Pizza Preference (Yes Proportion): {conf_interval_pineapple}")
+
+# Visualize confidence interval for Pineapple Pizza Preference (Single Proportion - Yes) -  Conceptual Normal Distribution
+n_pineapple_yes = pineapple_pizza_counts['Yes'] # Reusing existing count
+n_pineapple_total = len(data) # Reusing existing total
+conf_interval_pineapple_single = proportion_confint(n_pineapple_yes, n_pineapple_total, method='wilson') # Recalculating if needed, or reuse existing conf_interval_pineapple if you want single proportion CI
+
+fig_conf_int_pineapple, ax_conf_int_pineapple = plt.subplots(figsize=(8, 5))
+
+# Generate x values for the normal distribution curve
+x_norm = np.linspace(-4, 4, 500)
+y_norm = norm.pdf(x_norm, 0, 1) # Standard normal distribution (mean=0, std=1)
+ax_conf_int_pineapple.plot(x_norm, y_norm, label='Standard Normal Distribution')
+
+# Shade the confidence interval area (assuming 95% CI, z-scores approx -1.96 and 1.96)
+x_fill = np.linspace(-1.96, 1.96, 500)
+y_fill = norm.pdf(x_fill, 0, 1)
+ax_conf_int_pineapple.fill_between(x_fill, y_fill, color='skyblue', alpha=0.5, label='95% Confidence Interval')
+
+ax_conf_int_pineapple.set_title('Confidence Interval Visualization (Pineapple Pizza Preference - Single Proportion - Conceptual Normal Distribution)') # Modified title
+ax_conf_int_pineapple.set_xlabel('Z-score')
+ax_conf_int_pineapple.set_ylabel('Probability Density')
+ax_conf_int_pineapple.legend()
+plt.savefig('pineapple_pizza_preference_conf_interval.png') # New file name
+print("\n")
 
 # Calculate gender-specific data for pineapple preference
 male_pineapple_yes = len(male_data[male_data['Do you like pineapples on your pizza (please choose one)'] == 'Yes'])

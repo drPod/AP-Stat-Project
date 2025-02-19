@@ -5,6 +5,36 @@ from statsmodels.stats.proportion import proportions_ztest
 import numpy as np
 from scipy.stats import norm
 
+def plot_confidence_interval(conf_interval, title, filename):
+    """
+    Plots a confidence interval on a standard normal distribution.
+
+    Args:
+        conf_interval (tuple): The confidence interval (lower, upper).
+        title (str): The title of the plot.
+        filename (str): The filename to save the plot as.
+    """
+    fig_conf_int, ax_conf_int = plt.subplots(figsize=(8, 5))
+
+    # Generate x values for the normal distribution curve
+    x_norm = np.linspace(-4, 4, 500)
+    y_norm = norm.pdf(x_norm, 0, 1) # Standard normal distribution (mean=0, std=1)
+    ax_conf_int.plot(x_norm, y_norm, label='Standard Normal Distribution')
+
+    # Shade the confidence interval area (assuming 95% CI, z-scores approx -1.96 and 1.96)
+    x_lower = max(-4, conf_interval[0]) # Clip to plot range
+    x_upper = min(4, conf_interval[1])  # Clip to plot range
+    x_fill = np.linspace(x_lower, x_upper, 500)
+    y_fill = norm.pdf(x_fill, 0, 1)
+    ax_conf_int.fill_between(x_fill, y_fill, color='skyblue', alpha=0.5, label='95% Confidence Interval')
+
+    ax_conf_int.set_title(title + '\nConfidence Interval (Normal Dist.)')
+    ax_conf_int.set_xlabel('Difference in Proportions (or Z-score if standardized)') # More descriptive x-label
+    ax_conf_int.set_ylabel('Probability Density')
+    ax_conf_int.legend()
+    plt.savefig(filename)
+    plt.close(fig_conf_int) # Close the figure to free memory
+
 # Read the CSV file
 data = pd.read_csv('project-data.csv')
 
@@ -68,24 +98,11 @@ n_spicy_total = len(data)
 conf_interval_spicy = proportion_confint(n_spicy_yes, n_spicy_total, method='wilson')
 print(f"Confidence Interval for Spicy Food Preference (Yes Proportion): {conf_interval_spicy}")
 
-# Visualize confidence interval
-fig_conf_int, ax_conf_int = plt.subplots(figsize=(8, 5))
-
-# Generate x values for the normal distribution curve
-x_norm = np.linspace(-4, 4, 500)
-y_norm = norm.pdf(x_norm, 0, 1) # Standard normal distribution (mean=0, std=1)
-ax_conf_int.plot(x_norm, y_norm, label='Standard Normal Distribution')
-
-# Shade the confidence interval area (assuming 95% CI, z-scores approx -1.96 and 1.96)
-x_fill = np.linspace(-1.96, 1.96, 500)
-y_fill = norm.pdf(x_fill, 0, 1)
-ax_conf_int.fill_between(x_fill, y_fill, color='skyblue', alpha=0.5, label='95% Confidence Interval')
-
-ax_conf_int.set_title('Confidence Interval Visualization (Normal Distribution)')
-ax_conf_int.set_xlabel('Z-score')
-ax_conf_int.set_ylabel('Probability Density')
-ax_conf_int.legend()
-plt.savefig('spicy_food_preference_conf_interval.png')
+plot_confidence_interval(
+    conf_interval=conf_interval_spicy,
+    title='Spicy Food Preference (Single Proportion)',
+    filename='spicy_food_preference_conf_interval.png'
+)
 print("\n")
 
 # Calculate gender-specific data for spicy food preference
@@ -116,6 +133,11 @@ print(f"Sample proportion of females who like spicy food: {prop_female_spicy:.4f
 print(f"Difference in proportions: {diff_prop_spicy:.4f}")
 print(f"95% Confidence Interval for the difference: {conf_interval_diff_spicy}")
 print("----------------------------------------\n")
+plot_confidence_interval(
+    conf_interval=conf_interval_diff_spicy,
+    title='Difference in Spicy Food Preference Proportions\n(Male - Female)',
+    filename='spicy_food_preference_diff_conf_interval.png'
+)
 
 # Two-Sample Z-Test for Spicy Food Preference by Gender
 print("----------------------------------------")
@@ -171,28 +193,11 @@ n_pineapple_total = len(data)
 conf_interval_pineapple = proportion_confint(n_pineapple_yes, n_pineapple_total, method='wilson')
 print(f"Confidence Interval for Pineapple on Pizza Preference (Yes Proportion): {conf_interval_pineapple}")
 
-# Visualize confidence interval for Pineapple Pizza Preference (Single Proportion - Yes) -  Conceptual Normal Distribution
-n_pineapple_yes = pineapple_pizza_counts['Yes'] # Reusing existing count
-n_pineapple_total = len(data) # Reusing existing total
-conf_interval_pineapple_single = proportion_confint(n_pineapple_yes, n_pineapple_total, method='wilson') # Recalculating if needed, or reuse existing conf_interval_pineapple if you want single proportion CI
-
-fig_conf_int_pineapple, ax_conf_int_pineapple = plt.subplots(figsize=(8, 5))
-
-# Generate x values for the normal distribution curve
-x_norm = np.linspace(-4, 4, 500)
-y_norm = norm.pdf(x_norm, 0, 1) # Standard normal distribution (mean=0, std=1)
-ax_conf_int_pineapple.plot(x_norm, y_norm, label='Standard Normal Distribution')
-
-# Shade the confidence interval area (assuming 95% CI, z-scores approx -1.96 and 1.96)
-x_fill = np.linspace(-1.96, 1.96, 500)
-y_fill = norm.pdf(x_fill, 0, 1)
-ax_conf_int_pineapple.fill_between(x_fill, y_fill, color='skyblue', alpha=0.5, label='95% Confidence Interval')
-
-ax_conf_int_pineapple.set_title('Pineapple Pizza Preference\nConfidence Interval (Normal Dist.)') # Modified title
-ax_conf_int_pineapple.set_xlabel('Z-score')
-ax_conf_int_pineapple.set_ylabel('Probability Density')
-ax_conf_int_pineapple.legend()
-plt.savefig('pineapple_pizza_preference_conf_interval.png') # New file name
+plot_confidence_interval(
+    conf_interval=conf_interval_pineapple,
+    title='Pineapple on Pizza Preference (Single Proportion)',
+    filename='pineapple_pizza_preference_conf_interval.png'
+)
 print("\n")
 
 # Calculate gender-specific data for pineapple preference
@@ -217,6 +222,11 @@ print(f"Sample proportion of females who like pineapple on pizza: {prop_female_p
 print(f"Difference in proportions: {diff_prop_pineapple:.4f}")
 print(f"95% Confidence Interval for the difference: {conf_interval_diff_pineapple}")
 print("----------------------------------------\n")
+plot_confidence_interval(
+    conf_interval=conf_interval_diff_pineapple,
+    title='Difference in Pineapple on Pizza Preference Proportions\n(Male - Female)',
+    filename='pineapple_pizza_preference_diff_conf_interval.png'
+)
 
 # Two-Sample Z-Test for Pineapple on Pizza Preference by Gender
 print("----------------------------------------")

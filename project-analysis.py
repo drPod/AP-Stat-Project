@@ -68,6 +68,15 @@ conf_interval_spicy = proportion_confint(n_spicy_yes, n_spicy_total, method='wil
 print(f"Confidence Interval for Spicy Food Preference (Yes Proportion): {conf_interval_spicy}")
 print("\n")
 
+# Calculate gender-specific data for spicy food preference
+male_data = data[data['Please select your gender'] == 'Male']
+female_data = data[data['Please select your gender'] == 'Female']
+
+male_spicy_yes = len(male_data[male_data['Do you like spicy food? (please choose one)'] == 'Yes'])
+male_total = len(male_data)
+female_spicy_yes = len(female_data[female_data['Do you like spicy food? (please choose one)'] == 'Yes'])
+female_total = len(female_data)
+
 # Confidence Interval for Difference in Spicy Food Preference Proportions between Genders
 print("----------------------------------------")
 print("Confidence Interval: Difference in Spicy Food Preference Proportions (Male - Female)")
@@ -91,13 +100,6 @@ print("----------------------------------------\n")
 # Two-Sample Z-Test for Spicy Food Preference by Gender
 print("----------------------------------------")
 print("Two-Sample Z-Test: Spicy Food Preference by Gender")
-male_data = data[data['Please select your gender'] == 'Male']
-female_data = data[data['Please select your gender'] == 'Female']
-
-male_spicy_yes = len(male_data[male_data['Do you like spicy food? (please choose one)'] == 'Yes'])
-male_total = len(male_data)
-female_spicy_yes = len(female_data[female_data['Do you like spicy food? (please choose one)'] == 'Yes'])
-female_total = len(female_data)
 
 zstat_spicy, pvalue_spicy = proportions_ztest(
     [male_spicy_yes, female_spicy_yes],
@@ -148,6 +150,10 @@ n_pineapple_yes = pineapple_pizza_counts['Yes']
 n_pineapple_total = len(data)
 conf_interval_pineapple = proportion_confint(n_pineapple_yes, n_pineapple_total, method='wilson')
 print(f"Confidence Interval for Pineapple on Pizza Preference (Yes Proportion): {conf_interval_pineapple}")
+
+# Calculate gender-specific data for pineapple preference
+male_pineapple_yes = len(male_data[male_data['Do you like pineapples on your pizza (please choose one)'] == 'Yes'])
+female_pineapple_yes = len(female_data[female_data['Do you like pineapples on your pizza (please choose one)'] == 'Yes'])
 
 # Confidence Interval for Difference in Pineapple on Pizza Preference Proportions between Genders
 print("----------------------------------------")

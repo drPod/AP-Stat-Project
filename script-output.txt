@@ -1,0 +1,30 @@
+----------------------------------------
+Gender Distribution Analysis:
+Please select your gender
+Male      64
+Female    60
+Name: count, dtype: int64
+----------------------------------------
+
+
+
+----------------------------------------
+Spicy Food Preference Analysis:
+Do you like spicy food? (please choose one)
+Yes    96
+No     28
+Name: count, dtype: int64
+----------------------------------------
+
+Confidence Interval for Spicy Food Preference (Yes Proportion): (0.6930097812633303, 0.8388990425821045)
+
+
+----------------------------------------
+Pineapple on Pizza Preference Analysis:
+Do you like pineapples on your pizza (please choose one)
+No     68
+Yes    56
+Name: count, dtype: int64
+----------------------------------------
+
+Confidence Interval for Pineapple on Pizza Preference (Yes Proportion): (0.3667887444174813, 0.5393449925509713)

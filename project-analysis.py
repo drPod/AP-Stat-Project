@@ -188,7 +188,7 @@ x_fill = np.linspace(-1.96, 1.96, 500)
 y_fill = norm.pdf(x_fill, 0, 1)
 ax_conf_int_pineapple.fill_between(x_fill, y_fill, color='skyblue', alpha=0.5, label='95% Confidence Interval')
 
-ax_conf_int_pineapple.set_title('Confidence Interval Visualization (Pineapple Pizza Preference - Single Proportion - Conceptual Normal Distribution)') # Modified title
+ax_conf_int_pineapple.set_title('Pineapple Pizza Preference\nConfidence Interval (Normal Dist.)') # Modified title
 ax_conf_int_pineapple.set_xlabel('Z-score')
 ax_conf_int_pineapple.set_ylabel('Probability Density')
 ax_conf_int_pineapple.legend()

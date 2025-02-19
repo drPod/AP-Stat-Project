@@ -68,6 +68,26 @@ conf_interval_spicy = proportion_confint(n_spicy_yes, n_spicy_total, method='wil
 print(f"Confidence Interval for Spicy Food Preference (Yes Proportion): {conf_interval_spicy}")
 print("\n")
 
+# Confidence Interval for Difference in Spicy Food Preference Proportions between Genders
+print("----------------------------------------")
+print("Confidence Interval: Difference in Spicy Food Preference Proportions (Male - Female)")
+prop_male_spicy = male_spicy_yes / male_total
+prop_female_spicy = female_spicy_yes / female_total
+diff_prop_spicy = prop_male_spicy - prop_female_spicy
+
+pooled_prop_spicy = (male_spicy_yes + female_spicy_yes) / (male_total + female_total)
+std_error_diff_spicy = np.sqrt(pooled_prop_spicy * (1 - pooled_prop_spicy) * (1/male_total + 1/female_total))
+
+z_critical = 1.96  # for 95% confidence interval
+margin_of_error_spicy = z_critical * std_error_diff_spicy
+conf_interval_diff_spicy = (diff_prop_spicy - margin_of_error_spicy, diff_prop_spicy + margin_of_error_spicy)
+
+print(f"Sample proportion of males who like spicy food: {prop_male_spicy:.4f}")
+print(f"Sample proportion of females who like spicy food: {prop_female_spicy:.4f}")
+print(f"Difference in proportions: {diff_prop_spicy:.4f}")
+print(f"95% Confidence Interval for the difference: {conf_interval_diff_spicy}")
+print("----------------------------------------\n")
+
 # Two-Sample Z-Test for Spicy Food Preference by Gender
 print("----------------------------------------")
 print("Two-Sample Z-Test: Spicy Food Preference by Gender")
@@ -128,6 +148,25 @@ n_pineapple_yes = pineapple_pizza_counts['Yes']
 n_pineapple_total = len(data)
 conf_interval_pineapple = proportion_confint(n_pineapple_yes, n_pineapple_total, method='wilson')
 print(f"Confidence Interval for Pineapple on Pizza Preference (Yes Proportion): {conf_interval_pineapple}")
+
+# Confidence Interval for Difference in Pineapple on Pizza Preference Proportions between Genders
+print("----------------------------------------")
+print("Confidence Interval: Difference in Pineapple on Pizza Preference Proportions (Male - Female)")
+prop_male_pineapple = male_pineapple_yes / male_total
+prop_female_pineapple = female_pineapple_yes / female_total
+diff_prop_pineapple = prop_male_pineapple - prop_female_pineapple
+
+pooled_prop_pineapple = (male_pineapple_yes + female_pineapple_yes) / (male_total + female_total)
+std_error_diff_pineapple = np.sqrt(pooled_prop_pineapple * (1 - pooled_prop_pineapple) * (1/male_total + 1/female_total))
+
+margin_of_error_pineapple = z_critical * std_error_diff_pineapple
+conf_interval_diff_pineapple = (diff_prop_pineapple - margin_of_error_pineapple, diff_prop_pineapple + margin_of_error_pineapple)
+
+print(f"Sample proportion of males who like pineapple on pizza: {prop_male_pineapple:.4f}")
+print(f"Sample proportion of females who like pineapple on pizza: {prop_female_pineapple:.4f}")
+print(f"Difference in proportions: {diff_prop_pineapple:.4f}")
+print(f"95% Confidence Interval for the difference: {conf_interval_diff_pineapple}")
+print("----------------------------------------\n")
 
 # Two-Sample Z-Test for Pineapple on Pizza Preference by Gender
 print("----------------------------------------")

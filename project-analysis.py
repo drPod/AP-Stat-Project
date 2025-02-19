@@ -67,6 +67,7 @@ print("\n")
 # Spicy Food Preference Analysis
 
 # Create spicy food preference charts
+spicy_food_counts = data['Do you like spicy food? (please choose one)'].value_counts()
 spicy_food_gender_counts = data.groupby('Please select your gender')['Do you like spicy food? (please choose one)'].value_counts().unstack()
 fig_spicy_bar, ax_spicy_bar = plt.subplots(figsize=(8, 6))
 
@@ -168,6 +169,7 @@ print("----------------------------------------\n")
 
 # Pineapple on Pizza Preference Analysis
 # Create pineapple on pizza preference charts
+pineapple_pizza_counts = data['Do you like pineapples on your pizza (please choose one)'].value_counts()
 pineapple_pizza_gender_counts = data.groupby('Please select your gender')['Do you like pineapples on your pizza (please choose one)'].value_counts().unstack()
 fig_pineapple_bar, ax_pineapple_bar = plt.subplots(figsize=(8, 6))
 

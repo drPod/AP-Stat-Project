@@ -12,7 +12,7 @@ plt.title('Gender Distribution of Survey Respondents')
 plt.xlabel('Gender')
 plt.ylabel('Number of Respondents')
 plt.xticks(rotation=0)
-plt.show()
+plt.savefig('gender_distribution.png')
 
 # Create spicy food preference bar chart
 spicy_food_counts = data['Do you like spicy food? (please choose one)'].value_counts()
@@ -22,7 +22,7 @@ plt.title('Spicy Food Preference')
 plt.xlabel('Likes Spicy Food?')
 plt.ylabel('Number of Respondents')
 plt.xticks(rotation=0)
-plt.show()
+plt.savefig('spicy_food_preference.png')
 
 # Create pineapple on pizza preference bar chart
 pineapple_pizza_counts = data['Do you like pineapples on your pizza (please choose one)'].value_counts()
@@ -32,4 +32,4 @@ plt.title('Pineapple on Pizza Preference')
 plt.xlabel('Likes Pineapple on Pizza?')
 plt.ylabel('Number of Respondents')
 plt.xticks(rotation=0)
-plt.show()
+plt.savefig('pineapple_pizza_preference.png')

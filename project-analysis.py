@@ -67,17 +67,23 @@ print("\n")
 # Spicy Food Preference Analysis
 
 # Create spicy food preference charts
-spicy_food_counts = data['Do you like spicy food? (please choose one)'].value_counts()
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+spicy_food_gender_counts = data.groupby('Please select your gender')['Do you like spicy food? (please choose one)'].value_counts().unstack()
+fig_spicy_bar, ax_spicy_bar = plt.subplots(figsize=(8, 6))
 
 # Bar chart
-spicy_food_counts.plot(kind='bar', ax=ax1)
-ax1.set_title('Spicy Food Preference (Counts)')
-ax1.set_xlabel('Likes Spicy Food?')
-ax1.set_ylabel('Number of Respondents')
-ax1.tick_params(axis='x', rotation=0)
-for i, count in enumerate(spicy_food_counts):
-    ax1.text(i, count + 0.1, str(count), ha='center', va='bottom')
+spicy_food_gender_counts.plot(kind='bar', ax=ax_spicy_bar)
+ax_spicy_bar.set_title('Spicy Food Preference by Gender (Counts)')
+ax_spicy_bar.set_xlabel('Gender')
+ax_spicy_bar.set_ylabel('Number of Respondents')
+ax_spicy_bar.tick_params(axis='x', rotation=0)
+
+# Annotate bars with counts
+for bar_container in ax_spicy_bar.containers:
+    ax_spicy_bar.bar_label(bar_container, label_type='edge')
+
+plt.tight_layout()
+plt.savefig('spicy_food_preference_gender.png')
+plt.close(fig_spicy_bar)
 
 # Pie chart
 total = spicy_food_counts.sum()
@@ -162,17 +168,23 @@ print("----------------------------------------\n")
 
 # Pineapple on Pizza Preference Analysis
 # Create pineapple on pizza preference charts
-pineapple_pizza_counts = data['Do you like pineapples on your pizza (please choose one)'].value_counts()
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+pineapple_pizza_gender_counts = data.groupby('Please select your gender')['Do you like pineapples on your pizza (please choose one)'].value_counts().unstack()
+fig_pineapple_bar, ax_pineapple_bar = plt.subplots(figsize=(8, 6))
 
 # Bar chart
-pineapple_pizza_counts.plot(kind='bar', ax=ax1)
-ax1.set_title('Pineapple on Pizza Preference (Counts)')
-ax1.set_xlabel('Likes Pineapple on Pizza?')
-ax1.set_ylabel('Number of Respondents')
-ax1.tick_params(axis='x', rotation=0)
-for i, count in enumerate(pineapple_pizza_counts):
-    ax1.text(i, count + 0.1, str(count), ha='center', va='bottom')
+pineapple_pizza_gender_counts.plot(kind='bar', ax=ax_pineapple_bar)
+ax_pineapple_bar.set_title('Pineapple on Pizza Preference by Gender (Counts)')
+ax_pineapple_bar.set_xlabel('Gender')
+ax_pineapple_bar.set_ylabel('Number of Respondents')
+ax_pineapple_bar.tick_params(axis='x', rotation=0)
+
+# Annotate bars with counts
+for bar_container in ax_pineapple_bar.containers:
+    ax_pineapple_bar.bar_label(bar_container, label_type='edge')
+
+plt.tight_layout()
+plt.savefig('pineapple_pizza_preference_gender.png')
+plt.close(fig_pineapple_bar)
 
 # Pie chart
 total = pineapple_pizza_counts.sum()

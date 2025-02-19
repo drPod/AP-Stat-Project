@@ -20,6 +20,14 @@ Confidence Interval for Spicy Food Preference (Yes Proportion): (0.6930097812633
 
 
 ----------------------------------------
+Two-Sample Z-Test: Spicy Food Preference by Gender
+Males who like spicy food: 47 out of 64
+Females who like spicy food: 49 out of 60
+Z-statistic: -1.0953, P-value: 0.2734
+Fail to reject the null hypothesis: There is no significant difference in spicy food preference between genders.
+----------------------------------------
+
+----------------------------------------
 Pineapple on Pizza Preference Analysis:
 Do you like pineapples on your pizza (please choose one)
 No     68
@@ -28,3 +36,12 @@ Name: count, dtype: int64
 ----------------------------------------
 
 Confidence Interval for Pineapple on Pizza Preference (Yes Proportion): (0.3667887444174813, 0.5393449925509713)
+----------------------------------------
+Two-Sample Z-Test: Pineapple on Pizza Preference by Gender
+Males who like pineapple on pizza: 28 out of 64
+Females who like pineapple on pizza: 28 out of 60
+Z-statistic: -0.3261, P-value: 0.7443
+Fail to reject the null hypothesis: There is no significant difference in pineapple pizza preference between genders.
+----------------------------------------
+
+Script completed. Output saved to script-output.txt and images saved as PNG files.
